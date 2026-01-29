@@ -18,9 +18,11 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'nama',
+        'username',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -41,8 +43,31 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Relasi dengan Aspirasi
+     */
+    public function aspirasis()
+    {
+        return $this->hasMany(Aspirasi::class);
+    }
+
+    /**
+     * Check apakah user adalah admin
+     */
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    /**
+     * Check apakah user adalah siswa
+     */
+    public function isSiswa()
+    {
+        return $this->role === 'siswa';
     }
 }
