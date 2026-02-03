@@ -12,7 +12,7 @@
                 <path d="M5.5 10.5V21h13V10.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M10 21v-6h4v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            Selamat Datang, {{ Auth::user()->name }}!
+            Selamat Datang, {{ Auth::user()->nama }}!
         </h2>
         <p>Kelola aspirasi dan pengaduan sarana sekolah Anda di sini</p>
     </div>

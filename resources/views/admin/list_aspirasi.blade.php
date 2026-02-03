@@ -79,16 +79,17 @@
                 </div>
 
                 <div class="filter-group">
-                    <label for="tahun">Tahun:</label>
-                    <select id="tahun" name="tahun" class="form-control">
-                        <option value="">-- Semua Tahun --</option>
-                        @for($i = date('Y'); $i >= date('Y') - 5; $i--)
-                            <option value="{{ $i }}" {{ request('tahun') == $i ? 'selected' : '' }}>
-                                {{ $i }}
-                            </option>
-                        @endfor
-                    </select>
-                </div>
+    <label for="tahun">Tahun:</label>
+    <select id="tahun" name="tahun" class="form-control">
+        <option value="">-- Semua Tahun --</option>
+        @for($i = date('Y'); $i >= date('Y') - 5; $i--)
+            <option value="{{ $i }}" {{ request('tahun') == $i ? 'selected' : '' }}>
+                {{ $i }}
+            </option>
+        @endfor
+    </select>
+</div>
+
 
                 <div class="filter-group filter-actions split">
     <button type="submit" class="btn btn-primary btn-with-icon">
