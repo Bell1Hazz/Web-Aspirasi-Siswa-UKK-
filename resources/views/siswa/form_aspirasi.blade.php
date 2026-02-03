@@ -30,7 +30,7 @@
                 id="nama" 
                 name="nama" 
                 class="form-control"
-                value="{{ Auth::user()->name }}"
+                value="{{ Auth::user()->nama }}"
                 disabled
             >
             <small class="form-text">Nama Anda yang terdaftar di sistem</small>
