@@ -98,6 +98,7 @@
         id="gambar"
         name="gambar"
         class="form-control @error('gambar') is-invalid @enderror"
+        required
         accept="image/*"
     >
     <small class="form-text">Format: JPG/PNG/WebP, maks 2MB</small>

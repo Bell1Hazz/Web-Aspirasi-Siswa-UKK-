@@ -78,6 +78,33 @@
             <div class="deskripsi-box">
                 {{ $aspirasi->deskripsi }}
             </div>
+            {{-- FOTO BUKTI --}}
+<div class="foto-section">
+    <h3 class="heading-with-icon">
+        <!-- Icon: Image -->
+        <svg class="ui-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6Z"
+                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"
+                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21 16l-6-6-7 7"
+                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Foto Bukti
+    </h3>
+
+    <div class="foto-box">
+        <a href="{{ asset('storage/'.$aspirasi->gambar) }}" target="_blank" rel="noopener">
+            <img
+                src="{{ asset('storage/'.$aspirasi->gambar) }}"
+                alt="Foto bukti aspirasi"
+                class="foto-img"
+            >
+        </a>
+        <small class="form-text">Klik gambar untuk melihat ukuran penuh</small>
+    </div>
+</div>
+
         </div>
 
         @if($aspirasi->feedback)
@@ -184,5 +211,26 @@
         display: inline-flex;
         align-items: center;
     }
+    /* FOTO: biar gambar gak keluar box */
+.foto-box{
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;          /* kunci biar ga melewati box */
+    border-radius: 14px;       /* biar sudut ikut rapi */
+}
+
+.foto-box a{
+    display: block;            /* link jadi block, ikut lebar box */
+    width: 100%;
+}
+
+.foto-img{
+    display: block;
+    width: 100%;               /* WAJIB: ikut lebar container */
+    max-width: 100%;
+    height: auto;              /* jaga rasio */
+    object-fit: contain;       /* aman untuk berbagai ukuran */
+}
+
 </style>
 @endsection

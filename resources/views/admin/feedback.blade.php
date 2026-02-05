@@ -67,6 +67,32 @@
             </div>
         </div>
     </div>
+{{-- FOTO BUKTI ASPIRASI --}}
+<div class="foto-section">
+    <h3 class="heading-with-icon">
+        <!-- Icon: Image -->
+        <svg class="ui-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6Z"
+                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"
+                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21 16l-6-6-7 7"
+                  stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Foto Bukti Aspirasi
+    </h3>
+
+    <div class="foto-box">
+        <a href="{{ asset('storage/'.$aspirasi->gambar) }}" target="_blank" rel="noopener">
+            <img
+                src="{{ asset('storage/'.$aspirasi->gambar) }}"
+                alt="Foto bukti aspirasi"
+                class="foto-img"
+            >
+        </a>
+        <small class="form-text">Klik gambar untuk melihat ukuran penuh</small>
+    </div>
+</div>
 
     <form method="POST" action="{{ route('admin.feedback.save', $aspirasi->id) }}" class="feedback-form">
         @csrf
@@ -157,6 +183,21 @@
 </div>
 
 <style>
+    .foto-section{
+    margin: 1.25rem 0;
+}
+.foto-box{
+    margin-top: .6rem;
+}
+.foto-img{
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    display: block;
+    border-radius: 14px;
+    border: 1px solid rgba(0,0,0,.08);
+}
+
     /* util icon */
     .ui-icon{
         width: 1.05em;
