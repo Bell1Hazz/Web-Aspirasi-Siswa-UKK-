@@ -38,7 +38,7 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('aspirasi.store') }}" class="form-aspirasi">
+    <form method="POST" action="{{ route('aspirasi.store') }}" class="form-aspirasi" enctype="multipart/form-data">
         @csrf
 
         <div class="form-group">
@@ -91,6 +91,20 @@
                 <span class="error-text">{{ $message }}</span>
             @enderror
         </div>
+        <div class="form-group">
+    <label for="gambar">Foto Bukti (Opsional)</label>
+    <input
+        type="file"
+        id="gambar"
+        name="gambar"
+        class="form-control @error('gambar') is-invalid @enderror"
+        accept="image/*"
+    >
+    <small class="form-text">Format: JPG/PNG/WebP, maks 2MB</small>
+    @error('gambar')
+        <span class="error-text">{{ $message }}</span>
+    @enderror
+</div>
 
         <div class="form-group">
             <label for="deskripsi">Deskripsi Lengkap <span class="required">*</span></label>

@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Aspirasi;
 use App\Models\Kategori;
-use App\Models\Feedback;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AspirasiController extends Controller
 {
@@ -40,15 +40,23 @@ class AspirasiController extends Controller
     {
         $validated = $request->validate([
             'kategori_id' => 'required|exists:kategoris,id',
-            'judul' => 'required|string|max:255',
-            'deskripsi' => 'required|string'
+            'judul'       => 'required|string|max:255',
+            'deskripsi'   => 'required|string',
+            'gambar'      => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        $validated['user_id'] = Auth::id();
-        $validated['tanggal_pengajuan'] = now()->format('Y-m-d');
-        $validated['status'] = 'Diajukan';
+        // Upload gambar ke storage/app/public/aspirasi
+        $path = $request->file('gambar')->store('aspirasi', 'public');
 
-        Aspirasi::create($validated);
+        Aspirasi::create([
+            'user_id'           => Auth::id(),
+            'kategori_id'       => $validated['kategori_id'],
+            'judul'             => $validated['judul'],
+            'deskripsi'         => $validated['deskripsi'],
+            'gambar'            => $path, 
+            'tanggal_pengajuan' => now()->toDateString(),
+            'status'            => 'Diajukan',
+        ]);
 
         return redirect()->route('aspirasi.histori')->with('success', 'Aspirasi berhasil dikirim!');
     }
@@ -68,7 +76,7 @@ class AspirasiController extends Controller
     public function show($id)
     {
         $aspirasi = Aspirasi::findOrFail($id);
-        
+
         // Cek otorisasi
         if ($aspirasi->user_id != Auth::id() && !Auth::user()->isAdmin()) {
             abort(403);
