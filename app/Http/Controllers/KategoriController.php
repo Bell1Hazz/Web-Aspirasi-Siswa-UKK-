@@ -8,10 +8,11 @@ use Illuminate\Http\Request;
 class KategoriController extends Controller
 {
     public function index()
-    {
-        $kategoris = Kategori::orderBy('id', 'desc')->paginate(10);
-        return view('admin.kategori.index', compact('kategoris'));
-    }
+{
+    $kategoris = Kategori::orderBy('id', 'asc')->paginate(10);
+    return view('admin.kategori.index', compact('kategoris'));
+}
+
 
     public function create()
     {
