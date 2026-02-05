@@ -211,25 +211,25 @@
         display: inline-flex;
         align-items: center;
     }
-    /* FOTO: biar gambar gak keluar box */
+    
 .foto-box{
     width: 100%;
     max-width: 100%;
-    overflow: hidden;          /* kunci biar ga melewati box */
-    border-radius: 14px;       /* biar sudut ikut rapi */
+    overflow: hidden;          
+    border-radius: 14px;       
 }
 
 .foto-box a{
-    display: block;            /* link jadi block, ikut lebar box */
+    display: block;            
     width: 100%;
 }
 
 .foto-img{
     display: block;
-    width: 100%;               /* WAJIB: ikut lebar container */
+    width: 100%;               
     max-width: 100%;
-    height: auto;              /* jaga rasio */
-    object-fit: contain;       /* aman untuk berbagai ukuran */
+    height: auto;              
+    object-fit: contain;      
 }
 
 </style>
