@@ -15,6 +15,7 @@ class Aspirasi extends Model
         'user_id',
         'kategori_id',
         'judul',
+         'gambar',
         'deskripsi',
         'tanggal_pengajuan',
         'status'
