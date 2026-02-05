@@ -5,7 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AspirasiController;
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\KategoriController;
 // =============================================
 // AUTH ROUTES (Public)
 // =============================================
@@ -16,6 +16,11 @@ Route::get('/', function () {
             : redirect()->route('siswa.index');
     }
     return redirect()->route('login');
+});
+
+
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('kategori', KategoriController::class)->except(['show']);
 });
 
 // Login Routes
@@ -62,5 +67,6 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
     
     // Export (Optional)
     Route::get('/export', [AdminController::class, 'export'])->name('admin.export');
+    
 });
 

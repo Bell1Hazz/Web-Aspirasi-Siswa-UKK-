@@ -38,6 +38,17 @@
                     </svg>
                     Daftar Aspirasi
                 </a>
+                <a href="{{ route('admin.kategori.index') }}"
+   class="nav-link {{ Route::is('admin.kategori.*') ? 'active' : '' }}">
+    <!-- Icon: Tag / Category -->
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M20 13l-7 7-10-10V3h7L20 13Z"
+              stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M7.5 7.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    Kategori
+</a>
+
             @else
                 <a href="{{ route('siswa.index') }}" class="nav-link {{ Route::is('siswa.index') ? 'active' : '' }}">
                     <!-- Icon: Home -->
