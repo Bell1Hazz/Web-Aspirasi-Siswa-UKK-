@@ -16,7 +16,30 @@
         </h2>
         <p>Kelola dan pantau semua aspirasi yang masuk</p>
     </div>
+        <div class="header-actions">
+        <a href="{{ route('admin.print', request()->query()) }}"
+           target="_blank"
+           class="btn btn-secondary btn-with-icon">
+            <!-- Icon Print -->
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none">
+                <path d="M6 9V2h12v7" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M6 18h12v4H6z" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M6 14h12" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            Cetak
+        </a>
 
+        <a href="{{ route('admin.export', request()->query()) }}"
+           class="btn btn-success btn-with-icon">
+            <!-- Icon Excel -->
+            <svg class="ui-icon" viewBox="0 0 24 24" fill="none">
+                <path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M9 8l6 8M15 8l-6 8" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            Export Excel
+        </a>
+    </div>
+</div>
     <div class="filter-section">
         <h3 class="heading-with-icon">
             <!-- Icon: Search -->
@@ -27,7 +50,7 @@
             </svg>
             Filter Data
         </h3>
-
+        
         <form method="GET" action="{{ route('admin.list') }}" class="filter-form">
             <div class="filter-row">
                 <div class="filter-group">

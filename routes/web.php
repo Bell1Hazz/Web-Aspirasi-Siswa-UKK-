@@ -66,7 +66,10 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
     Route::post('/aspirasi/{id}/feedback', [AdminController::class, 'saveFeedback'])->name('admin.feedback.save');
     
     // Export (Optional)
-    Route::get('/export', [AdminController::class, 'export'])->name('admin.export');
-    
+    // Route::get('/export', [AdminController::class, 'export'])->name('admin.export');
+    Route::get('/admin/aspirasi/export', [AdminController::class, 'exportExcel'])
+    ->name('admin.export');
+    Route::get('/admin/aspirasi/print', [AdminController::class, 'print'])
+    ->name('admin.print');
 });
 

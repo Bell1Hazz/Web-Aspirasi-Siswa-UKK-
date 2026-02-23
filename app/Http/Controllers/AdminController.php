@@ -7,6 +7,8 @@ use App\Models\Feedback;
 use App\Models\User;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use App\Exports\AspirasiExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
@@ -111,9 +113,40 @@ class AdminController extends Controller
     }
 
     
-    public function export()
-    {
-        $aspirasis = Aspirasi::with(['user', 'kategori', 'feedback'])->get();
-        return view('admin.export', compact('aspirasis'));
+    public function exportExcel(Request $request)
+{
+    return Excel::download(
+        new AspirasiExport($request),
+        'data_aspirasi.xlsx'
+    );
+}
+
+public function print(Request $request)
+{
+    $query = Aspirasi::with(['user','kategori']);
+
+    if ($request->status) {
+        $query->where('status', $request->status);
     }
+
+    if ($request->kategori_id) {
+        $query->where('kategori_id', $request->kategori_id);
+    }
+
+    if ($request->user_id) {
+        $query->where('user_id', $request->user_id);
+    }
+
+    if ($request->bulan) {
+        $query->whereMonth('tanggal_pengajuan', $request->bulan);
+    }
+
+    if ($request->tahun) {
+        $query->whereYear('tanggal_pengajuan', $request->tahun);
+    }
+
+    $aspirasis = $query->orderBy('tanggal_pengajuan','desc')->get();
+
+    return view('admin.print', compact('aspirasis'));
+}
 }
