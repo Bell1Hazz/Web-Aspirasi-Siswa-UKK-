@@ -92,7 +92,7 @@
             @enderror
         </div>
         <div class="form-group">
-    <label for="gambar">Foto Bukti (Opsional)</label>
+    <label for="gambar">Foto Bukti </label>
     <input
         type="file"
         id="gambar"
