@@ -24,18 +24,14 @@ class AspirasiController extends Controller
         return view('siswa.index', compact('totalAspi', 'aspilDiajukan', 'aspilDiproses', 'aspilSelesai'));
     }
 
-    /**
-     * Tampilkan form aspirasi
-     */
+    
     public function create()
     {
         $kategoris = Kategori::all();
         return view('siswa.form_aspirasi', compact('kategoris'));
     }
 
-    /**
-     * Simpan aspirasi baru
-     */
+    
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -45,7 +41,7 @@ class AspirasiController extends Controller
             'gambar'      => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        // Upload gambar ke storage/app/public/aspirasi
+        
         $path = $request->file('gambar')->store('aspirasi', 'public');
 
         Aspirasi::create([
@@ -61,18 +57,14 @@ class AspirasiController extends Controller
         return redirect()->route('aspirasi.histori')->with('success', 'Aspirasi berhasil dikirim!');
     }
 
-    /**
-     * Tampilkan histori aspirasi siswa
-     */
+    
     public function histori()
     {
-        $aspirasis = Auth::user()->aspirasis()->orderBy('created_at', 'desc')->get();
+        $aspirasis = Auth::user()->aspirasis()->orderBy('created_at', 'desc')->with(['kategori','feedback'])->paginate(5);
         return view('siswa.histori', compact('aspirasis'));
     }
 
-    /**
-     * Tampilkan detail aspirasi dengan feedback
-     */
+    
     public function show($id)
     {
         $aspirasi = Aspirasi::findOrFail($id);

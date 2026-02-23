@@ -19,16 +19,19 @@
 
     <div class="container">
         @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+    <div class="alert alert-success flash-alert" id="flash-alert">
+        <span>{{ session('success') }}</span>
+        <button type="button" class="flash-close" onclick="closeFlash()">×</button>
+    </div>
+@endif
 
-        @if(session('error'))
-            <div class="alert alert-error">
-                {{ session('error') }}
-            </div>
-        @endif
+
+@if(session('error'))
+    <div class="alert alert-error flash-alert" id="flash-alert">
+        <span>{{ session('error') }}</span>
+        <button type="button" class="flash-close" onclick="closeFlash()">×</button>
+    </div>
+@endif
 
         @yield('content')
     </div>
@@ -38,5 +41,22 @@
     @endif
 
     @yield('extra_js')
+    <script>
+function closeFlash() {
+    const alert = document.getElementById('flash-alert');
+    if (alert) {
+        alert.style.opacity = '0';
+        alert.style.transform = 'translateY(-10px)';
+        setTimeout(() => alert.remove(), 400);
+    }
+}
+
+const autoFlash = document.getElementById('flash-alert');
+if (autoFlash) {
+    setTimeout(() => {
+        closeFlash();
+    }, 3000);
+}
+</script>
 </body>
 </html>

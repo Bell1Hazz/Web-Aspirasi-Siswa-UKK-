@@ -94,6 +94,18 @@
     </div>
 </div>
 
+{{-- FLASH MESSAGE --}}
+@if(session('success'))
+    <div class="flash-message flash-success" id="flash-message">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="flash-message flash-error" id="flash-message">
+        {{ session('error') }}
+    </div>
+@endif
     <form method="POST" action="{{ route('admin.feedback.save', $aspirasi->id) }}" class="feedback-form">
         @csrf
 
@@ -180,6 +192,16 @@
             <li>Jika sudah selesai, berikan detail tentang hasil penyelesaian</li>
         </ul>
     </div>
+    <script>
+    const flash = document.getElementById('flash-message');
+    if (flash) {
+        setTimeout(() => {
+            flash.style.opacity = '0';
+            flash.style.transform = 'translateY(-10px)';
+            setTimeout(() => flash.remove(), 400);
+        }, 3000);
+    }
+</script>
 </div>
 
 <style>

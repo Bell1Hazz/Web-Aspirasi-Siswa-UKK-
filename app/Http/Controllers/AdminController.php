@@ -10,9 +10,7 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    /**
-     * Tampilkan dashboard admin
-     */
+    
     public function dashboard()
     {
         $totalAspi = Aspirasi::count();
@@ -23,12 +21,7 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('totalAspi', 'aspilDiajukan', 'aspilDiproses', 'aspilSelesai'));
     }
 
-    /**
-     * Tampilkan daftar aspirasi dengan filter
-     * - Tahun saja
-     * - Bulan saja
-     * - Kombinasi bulan + tahun
-     */
+    
     public function listAspirasi(Request $request)
     {
         $query = Aspirasi::with(['user', 'kategori']);
@@ -66,7 +59,8 @@ class AdminController extends Controller
             $query->whereYear('tanggal_pengajuan', (int) $request->tahun);
         }
 
-        $aspirasis = $query->orderBy('tanggal_pengajuan', 'desc')->paginate(10);
+        $aspirasis = $query->orderBy('tanggal_pengajuan', 'desc')->paginate(10)
+         ->withQueryString();
 
         $kategoris = Kategori::all();
         $siswas = User::where('role', 'siswa')->get();
@@ -74,28 +68,21 @@ class AdminController extends Controller
         return view('admin.list_aspirasi', compact('aspirasis', 'kategoris', 'siswas'));
     }
 
-    /**
-     * Tampilkan detail aspirasi
-     */
+    
     public function detailAspirasi($id)
     {
         $aspirasi = Aspirasi::with(['user', 'kategori', 'feedback'])->findOrFail($id);
         return view('admin.detail_aspirasi', compact('aspirasi'));
     }
 
-    /**
-     * Tampilkan form feedback
-     * (ini yang bikin error sebelumnya kalau method tidak ada)
-     */
+    
     public function showFeedbackForm($id)
     {
         $aspirasi = Aspirasi::with(['user', 'kategori', 'feedback'])->findOrFail($id);
         return view('admin.feedback', compact('aspirasi'));
     }
 
-    /**
-     * Simpan feedback dan update status
-     */
+    
     public function saveFeedback(Request $request, $id)
     {
         $aspirasi = Aspirasi::with('feedback')->findOrFail($id);
@@ -123,9 +110,7 @@ class AdminController extends Controller
         return redirect()->route('admin.detail', $id)->with('success', 'Feedback berhasil disimpan!');
     }
 
-    /**
-     * Export data aspirasi ke CSV/Excel (optional)
-     */
+    
     public function export()
     {
         $aspirasis = Aspirasi::with(['user', 'kategori', 'feedback'])->get();

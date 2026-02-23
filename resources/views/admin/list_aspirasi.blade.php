@@ -187,9 +187,38 @@
             </table>
         </div>
 
-        <div class="pagination-container">
-            {{ $aspirasis->links() }}
-        </div>
+        @if ($aspirasis->hasPages())
+    <div class="custom-pagination">
+        
+        {{-- Previous --}}
+        @if ($aspirasis->onFirstPage())
+            <span class="page-btn disabled">‹</span>
+        @else
+            <a href="{{ $aspirasis->previousPageUrl() }}" class="page-btn">
+                ‹
+            </a>
+        @endif
+
+        {{-- Page Numbers --}}
+        @foreach ($aspirasis->getUrlRange(1, $aspirasis->lastPage()) as $page => $url)
+            @if ($page == $aspirasis->currentPage())
+                <span class="page-btn active">{{ $page }}</span>
+            @else
+                <a href="{{ $url }}" class="page-btn">{{ $page }}</a>
+            @endif
+        @endforeach
+
+        {{-- Next --}}
+        @if ($aspirasis->hasMorePages())
+            <a href="{{ $aspirasis->nextPageUrl() }}" class="page-btn">
+                ›
+            </a>
+        @else
+            <span class="page-btn disabled">›</span>
+        @endif
+
+    </div>
+@endif
     @endif
 </div>
 
